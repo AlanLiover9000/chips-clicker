@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥔Chip Clicker</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(0deg, rgb(88, 223, 228) 0%, rgb(36, 200, 72) 35%, rgba(0,212,255,1) 100%);
+        }
+        .main {
+            margin-top: 10px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+        }
+        .btn {
+            border: none;
+            background: none;
+            outline:none;
+            padding: 0px;
+            font-size: 300px;
+            transition: 1s;
+        }
+        .btn:hover {
+            font-size: 320px;
+            transition: 1s;
+        }
+        .btn:active {
+            font-size: 300px;
+            transition: .27s;
+
+        }
+        span {
+            font-size: 20px;
+        }
+        .number {
+            font-size: 25px;
+        }
+        .dark {
+            position: fixed;
+            top:0;
+            /* background-color: black; */
+            opacity: .8;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+        }
+        .shop {
+            position: fixed;
+            z-index: 1;
+        }
+        .shop button {
+            border: none;
+            padding: 15px 24px;
+            margin-left: 10px;
+            margin-top: 10px;
+            font-size: 38px;
+            background-color: rgb(38, 148, 38);
+            border-radius: 20px;
+        }
+        .menu {
+            background-color: white;
+            display: grid;
+            place-items: center;
+            text-align: center;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <span class="shop">
+            <button>🛒</button>
+        </span>
+        <span>
+            <b><p style="color: rgb(215, 218, 49);">Chips</p><p class='number'></p></b>
+        </span>
+        <button class='btn'><img src="./img/chip.svg" width="500px" height="500px"/></button>
+        <div class="dark">
+            <div class="menu">
+
+                <p class="double">20 Chips</p>
+                <button class="2c">2x Chips</button>
+                <p class="plus1">5 Chips</p>
+                <button class="3c">1+ Chips</button>
+                <p class="quadruple">100 Chips</p>
+                <button class="4c">4x Chips</button>
+                <p class="10x">10000 Chips</p>
+                <button class="5c">10x Chips</button>
+                <p class="get fooled">10000000000000000000000 Chips</p>
+                <button class="6c">infinite Chips</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        let costs = [20,5,100,1000,10000]
+        let btn_class = ['2c','3c','4c','5c','6c']
+        let cost_text = ['double','plus1','quadruple','5c','6c']
+        var num = 0
+        let increase = 1
+        $('.number').text(num)
+        $('.btn').click(()=>{
+            num += increase
+            $('.number').text(num)  
+        })
+        $('.shop button').click(()=> {
+            $('.dark').toggle()
+        })
+        costs.forEach((item, index)=>{
+            $('.'+btn_class[index]).click(()=>{
+                if (num < costs[index] ){
+                    alert('no')
+                    return
+                }
+                num=num-costs[index]
+                if (index == 1) {
+                    costs[index]=costs[index]*2
+                    increase = 1 + increase
+                } else if (index == 0) {
+                    costs[index]=costs[index]*3
+                    increase = 2* increase
+                } else if (index == 2) {
+                    costs[index]=costs[index]*5
+                    increase = 4* increase
+                } else if (index == 3) {
+                    costs[index]=costs[index]*20
+                    increase = 10* increase
+                } else if (index == 4) {
+                    costs[index]=costs[index]*10000000000000000000000
+                    increase = 0* increase 
+                    num=0
+                    alert('Get trolled lmao')
+
+                }
+                console.log(increase)
+                $('.'+cost_text[index]).text(String(costs[index]) + ' Chips')
+                $('.number').text(num)
+
+            })
+
+        })
+    </script>
+</body>
+</html>
